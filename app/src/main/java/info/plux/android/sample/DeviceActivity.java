@@ -426,6 +426,7 @@ public class DeviceActivity extends AppCompatActivity implements OnBiopluxDataAv
     public void onBiopluxDataAvailable(String identifier, int seqNumber, int[] biopluxFrame, int digitalInput) {
         Message message = handler.obtainMessage();
         Bundle bundle = new Bundle();
+        Log.e("FRAME", biopluxFrame.toString());
         bundle.putParcelable(FRAME, new BiopluxFrame(identifier, seqNumber, biopluxFrame, digitalInput, null));
         message.setData(bundle);
         handler.sendMessage(message);
@@ -490,15 +491,7 @@ public class DeviceActivity extends AppCompatActivity implements OnBiopluxDataAv
 
                 if (isBioplux) {
                     List<Source> sources = new ArrayList<>();
-                    sources.add(new Source(1, 16, (byte)0x01, 1));
-                    sources.add(new Source(2, 16, (byte)0x01, 1));
-                    sources.add(new Source(3, 16, (byte)0x01, 1));
-                    sources.add(new Source(4, 16, (byte)0x01, 1));
-                    sources.add(new Source(5, 16, (byte)0x01, 1));
-                    sources.add(new Source(6, 16, (byte)0x01, 1));
-                    sources.add(new Source(7, 16, (byte)0x01, 1));
-                    sources.add(new Source(8, 16, (byte)0x01, 1));
-
+                    sources.add(new Source(9, 16, (byte)0x0F, 100));
 
                     try {
                         bioplux.start(samplingRate, sources);
